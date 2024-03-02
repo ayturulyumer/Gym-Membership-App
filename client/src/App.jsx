@@ -1,12 +1,8 @@
-
-import "./App.css";
-
+import Login from "./components/Login/Login.jsx";
 function App() {
   return (
-    <h1 className="bg-secondary w-full text-white">
-      Hello world!
-    </h1>
-  )
+   <Login/>
+  );
 }
 
 export default App;
