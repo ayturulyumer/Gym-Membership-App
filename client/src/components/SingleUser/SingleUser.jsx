@@ -9,9 +9,7 @@ export default function SingleUser() {
     <td>Hart Hagerty</td>
     <td>Месечна</td>
     <td>
-      <button className="btn btn-success text-secondary font-bold btn-align-middle">
-        Активен
-      </button>
+    <div className="badge badge-success text-secondary font-bold">Активен</div>
     </td>
     <td>3/2/2024</td>
     <td>3/3/2024</td>
