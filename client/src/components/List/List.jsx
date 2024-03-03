@@ -1,12 +1,21 @@
 import SingleUser from "../SingleUser/SingleUser.jsx";
+import Search from "../Search/Search.jsx";
+import Sort from "../Sort/Sort.jsx";
 
 export default function List() {
   return (
-    <div className="overflow-x-auto mt-60" >
-      <table className="table table-zebra sm:table-xs ">
+    <div className="overflow-x-auto h-max ">
+      <h1 className="text-center text-md mb-5 font-bold text-secondary">
+        Списък с членове
+      </h1>
+      <div className="flex  justify-between align-baseline mb-2 gap-5 position:sticky top-0 z-50">
+        <Search />
+        <Sort />
+      </div>
+      <table className="table table-zebra  border-black table-xs phone:table-sm  tablet:table-md laptop:tablet-lg ">
         {/* head */}
-        <thead className="mb-10">
-          <tr className="text-base th-center bg-secondary text-primary">
+        <thead>
+          <tr className="text-base th-center bg-secondary text-primary  ">
             <th>Име</th>
             <th>Вид карта</th>
             <th>Статус</th>
@@ -17,10 +26,20 @@ export default function List() {
           </tr>
         </thead>
         <tbody>
-         <SingleUser/>
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
+          <SingleUser />
         </tbody>
       </table>
+      <div className="join grid grid-cols-2">
+        <button className="join-item btn btn-outline">Предишна страница</button>
+        <button className="join-item btn btn-outline">Следваща страница</button>
+      </div>
     </div>
   );
 }
-
