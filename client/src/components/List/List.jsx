@@ -8,7 +8,7 @@ export default function List() {
       <h1 className="text-center text-md mb-5 font-bold text-secondary">
         Списък с членове
       </h1>
-      <div className="flex  justify-between align-baseline mb-2 gap-5 position:sticky top-0 z-50">
+      <div className="flex  justify-between align-baseline mb-2 gap-5 ">
         <Search />
         <Sort />
       </div>
