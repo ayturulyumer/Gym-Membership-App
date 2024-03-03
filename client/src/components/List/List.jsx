@@ -1,6 +1,7 @@
 import SingleUser from "../SingleUser/SingleUser.jsx";
 import Search from "../Search/Search.jsx";
 import Sort from "../Sort/Sort.jsx";
+import AddMember from "../AddMember/AddMember.jsx";
 
 export default function List() {
   return (
@@ -10,6 +11,7 @@ export default function List() {
       </h1>
       <div className="flex  justify-between align-baseline mb-2 gap-5 ">
         <Search />
+        <AddMember />
         <Sort />
       </div>
       <table className="table table-zebra  border-black table-xs phone:table-sm  tablet:table-md laptop:tablet-lg ">
@@ -36,9 +38,14 @@ export default function List() {
           <SingleUser />
         </tbody>
       </table>
+
       <div className="join grid grid-cols-2">
-        <button className="join-item btn btn-outline">Предишна страница</button>
-        <button className="join-item btn btn-outline">Следваща страница</button>
+        <button className="join-item btn btn-outline text-secondary">
+          Предишна страница
+        </button>
+        <button className="join-item btn btn-outline text-secondary">
+          Следваща страница
+        </button>
       </div>
     </div>
   );
