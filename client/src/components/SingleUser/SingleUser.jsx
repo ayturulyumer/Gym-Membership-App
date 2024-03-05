@@ -13,7 +13,7 @@ export default function SingleUser() {
     </td>
     <td>3/2/2024</td>
     <td>3/3/2024</td>
-    <td>30</td>
+    <td><div className="badge  badge-outline badge-success">30</div></td>
     <td className="flex gap-2 justify-center">
       <button>
         <NoteIcon />
