@@ -130,7 +130,7 @@ export default function CreateMemberModal() {
                 placeholderText="Изберете начална дата..."
                 disabled={cardType !== "personalized"}
               />
-             {cardType === "personalized" && (
+              {cardType === "personalized" && (
                 <span className="badge badge-warning text-primary">*</span>
               )}
             </label>
@@ -160,25 +160,61 @@ export default function CreateMemberModal() {
                 placeholderText="Изберете крайна дата..."
                 disabled={cardType !== "personalized"}
               />
-            {cardType === "personalized" && (
+              {cardType === "personalized" && (
                 <span className="badge badge-warning text-primary">*</span>
               )}
             </label>
-            
+
             {cardType === "20workouts" && (
-                  <label className="input input-bordered flex items-center gap-2 text-secondary">
-                  <FitnessCenterIcon />
-                  Общо тренировки: 
-                  <input type="text" value="20" className="grow"  disabled/>
-                </label>
-              )}
-                   {cardType === "25workouts" && (
-                  <label className="input input-bordered flex items-center gap-2 text-secondary">
-                  <FitnessCenterIcon />
-                  Общо тренировки:
-                  <input type="text"  value="25" className="grow"  disabled/>
-                </label>
-              )}
+              <label className="input input-bordered flex items-center gap-2 text-secondary">
+                <FitnessCenterIcon />
+                Общо тренировки:
+                <input type="text" value="20" className="grow" disabled />
+              </label>
+            )}
+            {cardType === "25workouts" && (
+              <label className="input input-bordered flex items-center gap-2 text-secondary">
+                <FitnessCenterIcon />
+                Общо тренировки:
+                <input type="text" value="25" className="grow" disabled />
+              </label>
+            )}
+            <div className="flex justify-around mt-2">
+              <button className="btn btn-error">
+                Анулирай
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </button>
+              <button className="btn btn-success">
+                Добави
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
           </form>
         </div>
       </dialog>
