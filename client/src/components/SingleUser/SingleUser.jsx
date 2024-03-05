@@ -15,16 +15,13 @@ export default function SingleUser() {
     <td>3/3/2024</td>
     <td><div className="badge  badge-outline badge-success">30</div></td>
     <td className="flex gap-2 justify-center">
-      <button>
-        <NoteIcon />
-      </button>{" "}
-      <button>
+      <button className="tooltip" data-tip="Подновяване">
         <AutorenewIcon htmlColor="green" />
       </button>{" "}
-      <button>
+      <button className="tooltip" data-tip="Редактиране">
         <EditIcon htmlColor="yellow" />
       </button>{" "}
-      <button>
+      <button className="tooltip" data-tip="Изтриване">
         <DeleteIcon htmlColor="red" />
       </button>{" "}
     </td>
