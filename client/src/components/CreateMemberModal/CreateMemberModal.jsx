@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 export default function CreateMemberModal() {
   const [startDate, setStartDate] = useState(null);
@@ -15,6 +16,7 @@ export default function CreateMemberModal() {
     setEndDate(date);
   };
 
+  // Date can be choosen only if card type is Personalized otherwise it's autopicked 1 month for monthly / 3 months for other  card types
   const handleCardTypeChange = (event) => {
     setCardType(event.target.value);
     if (event.target.value === "monthly") {
@@ -24,8 +26,17 @@ export default function CreateMemberModal() {
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       setStartDate(currentDate);
       setEndDate(nextMonth);
+    } else if (
+      event.target.value === "20workouts" ||
+      event.target.value === "25workouts"
+    ) {
+      const currentDate = new Date();
+      const nextMonth = new Date(currentDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 3);
+      setStartDate(currentDate);
+      setEndDate(nextMonth);
     } else {
-      // Reset start and end dates for other card types
+      // Reset date
       setStartDate(null);
       setEndDate(null);
     }
@@ -117,9 +128,11 @@ export default function CreateMemberModal() {
                 startDate={startDate}
                 endDate={endDate}
                 placeholderText="Изберете начална дата..."
-                disabled={cardType === 'monthly'}
+                disabled={cardType !== "personalized"}
               />
-              <span className="badge badge-warning text-primary">*</span>
+             {cardType === "personalized" && (
+                <span className="badge badge-warning text-primary">*</span>
+              )}
             </label>
             <label className="input input-bordered flex items-center gap-2 text-secondary">
               <svg
@@ -145,10 +158,27 @@ export default function CreateMemberModal() {
                 endDate={endDate}
                 minDate={startDate}
                 placeholderText="Изберете крайна дата..."
-                disabled={cardType === 'monthly'}
+                disabled={cardType !== "personalized"}
               />
-              <span className="badge badge-warning text-primary">*</span>
+            {cardType === "personalized" && (
+                <span className="badge badge-warning text-primary">*</span>
+              )}
             </label>
+            
+            {cardType === "20workouts" && (
+                  <label className="input input-bordered flex items-center gap-2 text-secondary">
+                  <FitnessCenterIcon />
+                  Общо тренировки: 
+                  <input type="text" value="20" className="grow"  disabled/>
+                </label>
+              )}
+                   {cardType === "25workouts" && (
+                  <label className="input input-bordered flex items-center gap-2 text-secondary">
+                  <FitnessCenterIcon />
+                  Общо тренировки:
+                  <input type="text"  value="25" className="grow"  disabled/>
+                </label>
+              )}
           </form>
         </div>
       </dialog>
