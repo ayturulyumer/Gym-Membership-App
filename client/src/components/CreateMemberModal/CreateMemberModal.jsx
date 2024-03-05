@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function CreateMemberModal() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [cardType, setCardType] = useState("default");
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -13,6 +14,23 @@ export default function CreateMemberModal() {
   const handleEndDateChange = (date) => {
     setEndDate(date);
   };
+
+  const handleCardTypeChange = (event) => {
+    setCardType(event.target.value);
+    if (event.target.value === "monthly") {
+      // Set start date to current date and end date to 1 month ahead
+      const currentDate = new Date();
+      const nextMonth = new Date(currentDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      setStartDate(currentDate);
+      setEndDate(nextMonth);
+    } else {
+      // Reset start and end dates for other card types
+      setStartDate(null);
+      setEndDate(null);
+    }
+  };
+
   return (
     <>
       <button
@@ -65,13 +83,14 @@ export default function CreateMemberModal() {
               Вид карта:
               <select
                 className="select select-ghost w-full max-w-xs"
-                defaultValue="default"
+                value={cardType}
+                onChange={handleCardTypeChange}
               >
                 <option value="default">Избери вид карта...</option>
-                <option value="default">Месечна</option>
-                <option value="default">20 тренировки</option>
-                <option value="default">25 тренировки</option>
-                <option value="default">Персонализиранa</option>
+                <option value="monthly">Месечна</option>
+                <option value="20workouts">20 тренировки</option>
+                <option value="25workouts">25 тренировки</option>
+                <option value="personalized">Персонализиранa</option>
               </select>
               <span className="badge badge-warning text-primary">*</span>
             </label>
@@ -98,6 +117,7 @@ export default function CreateMemberModal() {
                 startDate={startDate}
                 endDate={endDate}
                 placeholderText="Изберете начална дата..."
+                disabled={cardType === 'monthly'}
               />
               <span className="badge badge-warning text-primary">*</span>
             </label>
@@ -125,6 +145,7 @@ export default function CreateMemberModal() {
                 endDate={endDate}
                 minDate={startDate}
                 placeholderText="Изберете крайна дата..."
+                disabled={cardType === 'monthly'}
               />
               <span className="badge badge-warning text-primary">*</span>
             </label>
