@@ -1,9 +1,19 @@
 import SingleUser from "../SingleUser/SingleUser.jsx";
 import Search from "../Search/Search.jsx";
 import Sort from "../Sort/Sort.jsx";
-import AddMember from "../AddMember/AddMember.jsx";
+import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
+import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
+import { useState } from "react";
 
 export default function List() {
+  const [showAddMember, setShowAddMember] = useState(false);
+
+  const toggleAddMemberButtonHandler = () => {
+    setShowAddMember((prevState) => !prevState);
+  };
+
+
+
   return (
     <div className="overflow-x-auto h-max ">
       <h1 className="text-center text-md mb-5 font-bold text-secondary">
@@ -11,19 +21,19 @@ export default function List() {
       </h1>
       <div className="flex  justify-between align-baseline mb-2 gap-5 ">
         <Search />
-        <AddMember />
+        <AddMemberButton showAddMemberHandler={toggleAddMemberButtonHandler} />
         <Sort />
       </div>
       <table className="table table-zebra  border-black table-xs phone:table-sm  tablet:table-md laptop:tablet-lg ">
         {/* head */}
         <thead>
-          <tr className="text-base th-center bg-secondary text-primary  ">
+          <tr className="text-base th-center bg-primary text-secondary  ">
             <th>Име</th>
             <th>Вид карта</th>
             <th>Статус</th>
             <th>Начална дата</th>
             <th>Крайна дата</th>
-            <th>Оставащи тренировки</th>
+            <th>До изтичане</th>
             <th>Действия</th>
           </tr>
         </thead>
@@ -47,6 +57,8 @@ export default function List() {
           Следваща страница
         </button>
       </div>
+
+      {showAddMember && <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} />}
     </div>
   );
 }
