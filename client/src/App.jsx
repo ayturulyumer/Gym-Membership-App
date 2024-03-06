@@ -1,4 +1,4 @@
-import { AuthProvider } from "./contexts/AuthContext.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx"
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import Login from "./components/Login/Login.jsx";
@@ -11,7 +11,7 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Login />} />
-            <Dashboard path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </AuthProvider>
       </Router>
