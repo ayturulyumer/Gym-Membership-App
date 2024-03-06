@@ -7,6 +7,14 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Acess-Control-Allow-Origin", "*");
+  res.setHeader("Acess-Control-Allow-Methods", "*");
+  res.setHeader("Acess-Control-Allow-Headers", "*");
+  
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("YO MFFF");
 });
