@@ -69,7 +69,7 @@ export default function CreateMemberModal({ onShowToggle }) {
                   />
                 </svg>
                 Име:
-                <input type="text" className="grow" />
+                <input type="text" className="grow" name="name" />
                 <span className="badge badge-warning text-primary">*</span>
               </label>
               <label className="input input-bordered flex items-center gap-2 text-secondary">
@@ -92,6 +92,7 @@ export default function CreateMemberModal({ onShowToggle }) {
                   className="select select-ghost w-full max-w-xs"
                   value={cardType}
                   onChange={handleCardTypeChange}
+                  name="cardType"
                 >
                   <option value="default">Избери вид карта...</option>
                   <option value="monthly">Месечна</option>
@@ -125,6 +126,7 @@ export default function CreateMemberModal({ onShowToggle }) {
                   endDate={endDate}
                   placeholderText="Изберете начална дата..."
                   disabled={cardType !== "personalized"}
+                  name="startDate"
                 />
                 {cardType === "personalized" && (
                   <span className="badge badge-warning text-primary">*</span>
@@ -155,6 +157,7 @@ export default function CreateMemberModal({ onShowToggle }) {
                   minDate={startDate}
                   placeholderText="Изберете крайна дата..."
                   disabled={cardType !== "personalized"}
+                  name="endDate"
                 />
                 {cardType === "personalized" && (
                   <span className="badge badge-warning text-primary">*</span>
@@ -165,14 +168,14 @@ export default function CreateMemberModal({ onShowToggle }) {
                 <label className="input input-bordered flex items-center gap-2 text-secondary">
                   <FitnessCenterIcon />
                   Общо тренировки:
-                  <input type="text" value="20" className="grow" disabled />
+                  <input type="text" value="20" className="grow" name="workouts" disabled />
                 </label>
               )}
               {cardType === "25workouts" && (
                 <label className="input input-bordered flex items-center gap-2 text-secondary">
                   <FitnessCenterIcon />
                   Общо тренировки:
-                  <input type="text" value="25" className="grow" disabled />
+                  <input type="text" value="25" className="grow" name="workouts" disabled />
                 </label>
               )}
               <div className="flex justify-around mt-2">
