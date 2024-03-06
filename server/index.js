@@ -1,22 +1,22 @@
 const express = require("express");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const cors = require('cors')
+require('dotenv').config();
 
 const routes = require("./routes.js");
 
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/gym-membership-app")
+mongoose
+  .connect("mongodb://127.0.0.1:27017/gym-membership-app")
+  .then(() => console.log("DB Connected"))
+  .catch((err) => console.log(err));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors())
 
-app.use((req, res, next) => {
-  res.setHeader("Acess-Control-Allow-Origin", "*");
-  res.setHeader("Acess-Control-Allow-Methods", "*");
-  res.setHeader("Acess-Control-Allow-Headers", "*");
-  
-  next();
-});
+
 
 app.get("/", (req, res) => {
   res.send("YO MFFF");
