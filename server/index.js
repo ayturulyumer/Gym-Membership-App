@@ -1,8 +1,11 @@
 const express = require("express");
+const mongoose = require("mongoose")
 
 const routes = require("./routes.js");
 
 const app = express();
+
+mongoose.connect("mongodb://127.0.0.1:27017/gym-membership-app")
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
