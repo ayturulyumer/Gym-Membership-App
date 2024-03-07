@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const adminManager = require("../managers/adminManager.js");
 
-
 router.post("/login", async (req, res) => {
   try {
     const result = await adminManager.login(req.body);
@@ -12,6 +11,11 @@ router.post("/login", async (req, res) => {
       message: err.message,
     });
   }
+});
+
+router.get("/logout", async (req, res) => {
+  res.clearCookie("token");
+  res.send("Succesfully logged out")
 });
 
 module.exports = router;
