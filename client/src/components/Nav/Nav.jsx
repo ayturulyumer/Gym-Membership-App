@@ -1,3 +1,6 @@
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 export default function Nav() {
   return (
     <div className="navbar bg-primary text-secondary">
@@ -20,10 +23,19 @@ export default function Nav() {
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
+              <a className="flex justify-between align-baseline">
+                {" "}
+                <AccountBoxIcon />
+                Профил{" "}
+              </a>
+            </li>
+            <li>
+              <a className="flex justify-between align-baseline">
+                {" "}
+                <LogoutIcon />
                 Отписване
               </a>
             </li>
