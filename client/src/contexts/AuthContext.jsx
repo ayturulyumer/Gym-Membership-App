@@ -20,8 +20,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const onLogoutHandler = async () => {
+    try {
+      await adminApi.logout();
+      setAuth({});
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const contextValues = {
     onLoginHandler,
+    onLogoutHandler,
     userId: auth._ownerId,
     username: auth.username,
     token: auth.accessToken,
