@@ -1,6 +1,5 @@
 import { AuthProvider } from "./contexts/AuthContext.jsx"
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
-import Nav from "./components/Nav/Nav.jsx";
 import Login from "./components/Login/Login.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
@@ -8,7 +7,6 @@ function App() {
     <>
       <Router>
         <AuthProvider>
-          <Nav />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
