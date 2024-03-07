@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import AuthContext from "../../contexts/AuthContext.jsx";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function Nav() {
+  const { onLogoutHandler } = useContext(AuthContext);
+
   return (
     <div className="navbar bg-primary text-secondary">
       <div className="flex-1">
@@ -33,7 +37,10 @@ export default function Nav() {
               </a>
             </li>
             <li>
-              <a className="flex justify-between align-baseline">
+              <a
+                className="flex justify-between align-baseline"
+                onClick={() => onLogoutHandler()}
+              >
                 {" "}
                 <LogoutIcon />
                 Отписване
