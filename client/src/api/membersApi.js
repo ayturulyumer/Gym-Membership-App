@@ -5,3 +5,8 @@ export const addMember = async (data) => {
   const result = await request.post(`${baseUrl}/members`, data);
   return result;
 };
+
+export const getAllMembers = async () => {
+  const result = await request.get(`${baseUrl}/members`);
+  return result;
+};
