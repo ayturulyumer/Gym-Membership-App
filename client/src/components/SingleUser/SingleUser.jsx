@@ -2,9 +2,9 @@ import NoteIcon from "@mui/icons-material/Note";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import convertDateToBulgarian from "../../utils/convertDateToBulgarian.js";
 
 export default function SingleUser({ member }) {
-
   return (
     <tr className="text-secondary text-lg font-bold th-center">
       <td>{member.name}</td>
@@ -14,8 +14,8 @@ export default function SingleUser({ member }) {
           Активен
         </div>
       </td>
-      <td>{member.startDate}</td>
-      <td>{member.endDate}</td>
+      <td>{convertDateToBulgarian(member.startDate)}</td>
+      <td>{convertDateToBulgarian(member.endDate)}</td>
       <td>
         <div className="badge  badge-outline badge-success">30</div>
       </td>
