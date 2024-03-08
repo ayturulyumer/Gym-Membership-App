@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useForm } from "../../hooks/useForm.js";
+import * as membersApi from "../../api/membersApi.js";
 
 export default function CreateMemberModal({ onShowToggle }) {
   const [startDate, setStartDate] = useState(null);
@@ -19,7 +20,11 @@ export default function CreateMemberModal({ onShowToggle }) {
       data.workouts = 25;
     }
 
-    console.log(data);
+    try {
+      await membersApi.addMember(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { values, changeHandler, onSubmit } = useForm(
