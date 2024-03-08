@@ -2,11 +2,36 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import { useForm } from "../../hooks/useForm.js";
 
 export default function CreateMemberModal({ onShowToggle }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [cardType, setCardType] = useState("default");
+
+  const onCreateMemberHandler = async (data) => {
+    data.cardType = cardType;
+    data.startDate = startDate;
+    data.endDate = endDate;
+    if (data.cardType === "20workouts") {
+      data.workouts = 20;
+    } else if (cardType === "25workouts") {
+      data.workouts = 25;
+    }
+
+    console.log(data);
+  };
+
+  const { values, changeHandler, onSubmit } = useForm(
+    {
+      name: "",
+      cardType: cardType,
+      startDate: startDate,
+      endDate: endDate,
+      workouts: "",
+    },
+    onCreateMemberHandler
+  );
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -47,12 +72,20 @@ export default function CreateMemberModal({ onShowToggle }) {
       {onShowToggle && (
         <dialog id="my_modal_2" className="modal" open>
           <div className="modal-box modal-top">
-            <h1 className="text-center text-secondary font-bold  mb-4">
-              Моля, попълнете празните полета
+            <h1 className="text-center text-success font-extrabold  mb-4">
+              Добавяне на член
             </h1>
+            <h3 className="text-center text-secondary font-bold  mb-4">
+              {" "}
+              Моля, попълнете празните полета
+            </h3>
 
             <p className="text-center  mb-4">Полетата с * са задължителни !</p>
-            <form className="flex flex-col gap-10">
+            <form
+              className="flex flex-col gap-10"
+              method="POST"
+              onSubmit={onSubmit}
+            >
               <label className="input input-bordered flex items-center gap-2 text-secondary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +102,13 @@ export default function CreateMemberModal({ onShowToggle }) {
                   />
                 </svg>
                 Име:
-                <input type="text" className="grow" name="name" />
+                <input
+                  type="text"
+                  className="grow"
+                  name="name"
+                  value={values.name}
+                  onChange={changeHandler}
+                />
                 <span className="badge badge-warning text-primary">*</span>
               </label>
               <label className="input input-bordered flex items-center gap-2 text-secondary">
@@ -168,14 +207,26 @@ export default function CreateMemberModal({ onShowToggle }) {
                 <label className="input input-bordered flex items-center gap-2 text-secondary">
                   <FitnessCenterIcon />
                   Общо тренировки:
-                  <input type="text" value="20" className="grow" name="workouts" disabled />
+                  <input
+                    type="text"
+                    className="grow"
+                    name="workouts"
+                    value="20"
+                    disabled
+                  />
                 </label>
               )}
               {cardType === "25workouts" && (
                 <label className="input input-bordered flex items-center gap-2 text-secondary">
                   <FitnessCenterIcon />
                   Общо тренировки:
-                  <input type="text" value="25" className="grow" name="workouts" disabled />
+                  <input
+                    type="text"
+                    className="grow"
+                    name="workouts"
+                    value="25"
+                    disabled
+                  />
                 </label>
               )}
               <div className="flex justify-around mt-2">
@@ -196,7 +247,7 @@ export default function CreateMemberModal({ onShowToggle }) {
                     />
                   </svg>
                 </button>
-                <button className="btn btn-success">
+                <button className="btn btn-success" type="submit">
                   Добави
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
