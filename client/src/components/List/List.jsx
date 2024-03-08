@@ -8,7 +8,7 @@ import * as membersApi from "../../api/membersApi.js";
 
 export default function List() {
   const [showAddMember, setShowAddMember] = useState(false);
-  const [members, setMembers] = useState(false);
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     membersApi
@@ -17,7 +17,6 @@ export default function List() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(members);
 
   const toggleAddMemberButtonHandler = () => {
     setShowAddMember((prevState) => !prevState);
@@ -47,14 +46,9 @@ export default function List() {
           </tr>
         </thead>
         <tbody>
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
+          {members.map((member) => (
+            <SingleUser member={member} />
+          ))}
         </tbody>
       </table>
 
