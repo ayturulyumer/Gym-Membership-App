@@ -3,16 +3,25 @@ import Search from "../Search/Search.jsx";
 import Sort from "../Sort/Sort.jsx";
 import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
 import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as membersApi from "../../api/membersApi.js";
 
 export default function List() {
   const [showAddMember, setShowAddMember] = useState(false);
+  const [members, setMembers] = useState(false);
+
+  useEffect(() => {
+    membersApi
+      .getAllMembers()
+      .then((data) => setMembers(data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(members);
 
   const toggleAddMemberButtonHandler = () => {
     setShowAddMember((prevState) => !prevState);
   };
-
-
 
   return (
     <div className="overflow-x-auto h-max ">
@@ -58,7 +67,9 @@ export default function List() {
         </button>
       </div>
 
-      {showAddMember && <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} />}
+      {showAddMember && (
+        <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} />
+      )}
     </div>
   );
 }
