@@ -12,6 +12,13 @@ export default function SingleUser({ member }) {
   // Convert the current date to ISO , so we can compare them , because they are not the same format
   const currentDateISO = currentDate.toISOString();
 
+  // Calculate the remaining days until card expires
+  const calculateRemainingDays = () => {
+    const diffTime = new Date(userMembershipEndDate) - new Date(currentDateISO);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <tr className="text-secondary text-lg font-bold th-center">
       <td>{member.name}</td>
@@ -30,7 +37,19 @@ export default function SingleUser({ member }) {
       <td>{convertDateToBulgarian(member.startDate)}</td>
       <td>{convertDateToBulgarian(member.endDate)}</td>
       <td>
-        <div className="badge  badge-outline badge-success">30</div>
+        <div className="badge  badge-outline">
+          {member.cardType === "Месечна" ||
+          member.cardType === "Персонализиранa"
+            ? calculateRemainingDays() + " дни"
+            : member.cardType === "20 тренировки" ||
+              member.cardType === "25 тренировки"
+            ? calculateRemainingDays() +
+              " дни" +
+              " / " +
+              member.workouts +
+              " тренировки"
+            : ""}
+        </div>
       </td>
       <td className="flex gap-2 justify-center">
         <button className="tooltip" data-tip="Подновяване">
