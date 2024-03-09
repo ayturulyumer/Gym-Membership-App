@@ -21,23 +21,29 @@ export default function SingleUser({ member }) {
 
   return (
     <tr className="text-secondary text-lg font-bold th-center">
-      <td>{member.name}</td>
+      <td className="badge badge-default text-secondary">{member.name}</td>
       <td>{member.cardType}</td>
       <td>
         <div
           className={
             currentDateISO > userMembershipEndDate
               ? "badge badge-error text-secondary font-bold"
-              : "badge badge-success text-secondary font-bold"
+              : "badge badge-success text-primary font-bold"
           }
         >
           {currentDateISO > userMembershipEndDate ? "Изтекъл" : "Активен"}
         </div>
       </td>
-      <td>{convertDateToBulgarian(member.startDate)}</td>
-      <td>{convertDateToBulgarian(member.endDate)}</td>
       <td>
-        <div className="badge  badge-outline">
+        <span className="badge ">
+          {convertDateToBulgarian(member.startDate)}
+        </span>
+      </td>
+      <td>
+        <span className="badge ">{convertDateToBulgarian(member.endDate)}</span>
+      </td>
+      <td>
+        <div className="badge badge-default text-secondary">
           {member.cardType === "Месечна" ||
           member.cardType === "Персонализиранa"
             ? calculateRemainingDays() + " дни"
