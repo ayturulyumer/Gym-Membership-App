@@ -6,7 +6,6 @@ import { useForm } from "../../hooks/useForm.js";
 import * as membersApi from "../../api/membersApi.js";
 import convertCardTypeToBulgarian from "../../utils/convertCardTypeToCyrillic.js";
 
-
 export default function CreateMemberModal({ onShowToggle }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -16,9 +15,10 @@ export default function CreateMemberModal({ onShowToggle }) {
     data.cardType = convertCardTypeToBulgarian(cardType);
     data.startDate = startDate;
     data.endDate = endDate;
-    if (data.cardType === "20workouts") {
+    console.log(data.cardType);
+    if (data.cardType === "20 тренировки") {
       data.workouts = 20;
-    } else if (cardType === "25workouts") {
+    } else if (data.cardType === "25 тренировки") {
       data.workouts = 25;
     }
 
