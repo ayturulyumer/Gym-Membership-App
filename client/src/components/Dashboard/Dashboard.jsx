@@ -13,12 +13,16 @@ export default function Dashboard() {
       .catch((err) => console.log(err));
   }, []);
 
+  const addMember = (newMember) => {
+    setMembers((prevMembers) => [...prevMembers, newMember]);
+  };
+
   return (
     <>
       <Nav />
       <main className="mx-auto my-12 w-11/12 min-h-[calc(100vh - 13rem)] flex flex-col gap-10">
         <Stats members={members} />
-        <List members={members} />
+        <List members={members} addMemberToState={addMember} />
       </main>
     </>
   );
