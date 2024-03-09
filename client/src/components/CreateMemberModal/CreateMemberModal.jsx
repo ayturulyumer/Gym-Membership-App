@@ -5,16 +5,55 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useForm } from "../../hooks/useForm.js";
 import * as membersApi from "../../api/membersApi.js";
 import convertCardTypeToBulgarian from "../../utils/convertCardTypeToCyrillic.js";
+import InfoMessage from "../InfoMessage/InfoMessage.jsx";
 
 export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [cardType, setCardType] = useState("default");
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
 
   const onCreateMemberHandler = async (data) => {
     data.cardType = convertCardTypeToBulgarian(cardType);
     data.startDate = startDate;
     data.endDate = endDate;
+
+    // validations
+    if (!data.name || data.name.length < 3) {
+      setMessage("warning");
+      setWarningMessage("Името трябва да е 3 или повече символа ");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
+    // Check if cardType is default
+    if (data.cardType === "default") {
+      setMessage("warning");
+      setWarningMessage("Моля изберете  вид карта");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
+    // Check if Dates are empty
+    if (
+      (data.cardType == !"default" && data.startDate === null) ||
+      data.endDate === null
+    ) {
+      setMessage("warning");
+      setWarningMessage("Моля изберете начална и крайна дата");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
+    // change the workouts
 
     if (data.cardType === "20 тренировки") {
       data.workouts = 20;
@@ -25,9 +64,17 @@ export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
     try {
       const member = await membersApi.addMember(data);
       addMemberToState(member);
-      onShowToggle()
+      setMessage("success");
+      setTimeout(() => {
+        onShowToggle();
+        setMessage("");
+      }, 2000);
     } catch (error) {
-      console.log(error);
+      setMessage("error");
+      setErrorMessage(error.message);
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
     }
   };
 
@@ -75,23 +122,36 @@ export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
       setEndDate(null);
     }
   };
-
   return (
     <>
       {onShowToggle && (
         <dialog id="my_modal_2" className="modal" open>
           <div className="modal-box modal-top">
-            <h1 className="text-center text-success font-extrabold  mb-4">
-              Добавяне на член
-            </h1>
-            <h3 className="text-center text-secondary font-bold  mb-4">
-              {" "}
-              Моля, попълнете празните полета
-            </h3>
+            {message === "success" ? (
+              <InfoMessage statusMessage={message} />
+            ) : message === "warning" ? (
+              <InfoMessage
+                statusMessage={message}
+                textMessage={warningMessage}
+              />
+            ) : message === "error" ? (
+              <InfoMessage statusMessage={message} textMessage={errorMessage} />
+            ) : (
+              <>
+                <h1 className="text-center text-info font-extrabold mb-4">
+                  Добавяне на член
+                </h1>
+                <h3 className="text-center text-secondary font-bold mb-4">
+                  Моля, попълнете празните полета
+                </h3>
+                <p className="text-center  mb-4">
+                  Полетата с * са задължителни !
+                </p>
+              </>
+            )}
 
-            <p className="text-center  mb-4">Полетата с * са задължителни !</p>
             <form
-              className="flex flex-col gap-10"
+              className="flex flex-col gap-10 mt-4"
               method="POST"
               onSubmit={onSubmit}
             >
