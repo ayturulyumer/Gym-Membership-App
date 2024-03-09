@@ -4,15 +4,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useForm } from "../../hooks/useForm.js";
 import * as membersApi from "../../api/membersApi.js";
-import convertCardTypeToCyrillic from "../../utils/convertCardTypeToCyrillic.js";
+import convertCardTypeToBulgarian from "../../utils/convertCardTypeToCyrillic.js";
+
 
 export default function CreateMemberModal({ onShowToggle }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [cardType, setCardType] = useState("default");
-  
+
   const onCreateMemberHandler = async (data) => {
-    data.cardType = convertCardTypeToCyrillic(cardType);
+    data.cardType = convertCardTypeToBulgarian(cardType);
     data.startDate = startDate;
     data.endDate = endDate;
     if (data.cardType === "20workouts") {
