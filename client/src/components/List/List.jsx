@@ -58,7 +58,7 @@ export default function List({ members, addMemberToState }) {
         </thead>
         <tbody>
           {members.map((member) => (
-            <SingleUser member={member} />
+            <SingleUser key={member._id} member={member} />
           ))}
         </tbody>
       </table>
@@ -73,7 +73,10 @@ export default function List({ members, addMemberToState }) {
       </div>
 
       {showAddMember && (
-        <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} addMemberToState={addMemberToState} />
+        <CreateMemberModal
+          onShowToggle={toggleAddMemberButtonHandler}
+          addMemberToState={addMemberToState}
+        />
       )}
     </div>
   );
