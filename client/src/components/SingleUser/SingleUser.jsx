@@ -5,13 +5,26 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import convertDateToBulgarian from "../../utils/convertDateToBulgarian.js";
 
 export default function SingleUser({ member }) {
+  // Get the current date & current member membership end date
+  const currentDate = new Date();
+  const userMembershipEndDate = member.endDate;
+
+  // Convert the current date to ISO , so we can compare them , because they are not the same format
+  const currentDateISO = currentDate.toISOString();
+
   return (
     <tr className="text-secondary text-lg font-bold th-center">
       <td>{member.name}</td>
       <td>{member.cardType}</td>
       <td>
-        <div className="badge badge-success text-secondary font-bold">
-          Активен
+        <div
+          className={
+            currentDateISO > userMembershipEndDate
+              ? "badge badge-error text-secondary font-bold"
+              : "badge badge-success text-secondary font-bold"
+          }
+        >
+          {currentDateISO > userMembershipEndDate ? "Изтекъл" : "Активен"}
         </div>
       </td>
       <td>{convertDateToBulgarian(member.startDate)}</td>
