@@ -19,5 +19,5 @@ export default function convertDateToBulgarian(dateString) {
   const day = date.getDate();
   const year = date.getFullYear();
 
-  return `${month}/${day}/${year}`;
+  return `${day}/${month}/${year}`;
 }
