@@ -3,24 +3,34 @@ import Search from "../Search/Search.jsx";
 import Sort from "../Sort/Sort.jsx";
 import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
 import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
-import { useEffect, useState } from "react";
-import * as membersApi from "../../api/membersApi.js";
+import BadgeIcon from "@mui/icons-material/Badge";
+import StyleIcon from "@mui/icons-material/Style";
+import CardMembershipIcon from "@mui/icons-material/CardMembership";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
+import { useState } from "react";
 
-export default function List() {
+export default function List({ members }) {
   const [showAddMember, setShowAddMember] = useState(false);
-  const [members, setMembers] = useState([]);
-
-  useEffect(() => {
-    membersApi
-      .getAllMembers()
-      .then((data) => setMembers(data))
-      .catch((err) => console.log(err));
-  }, []);
-
 
   const toggleAddMemberButtonHandler = () => {
     setShowAddMember((prevState) => !prevState);
   };
+
+  // Define array of objects for table header columns
+  const tableHeaderColumns = [
+    { icon: <BadgeIcon />, text: "Име" },
+    { icon: <StyleIcon htmlColor="gray" />, text: "Вид карта" },
+    { icon: <CardMembershipIcon htmlColor="lightblue" />, text: "Статус" },
+    {
+      icon: <CalendarMonthIcon htmlColor="lightgreen" />,
+      text: "Начална дата",
+    },
+    { icon: <CalendarMonthIcon htmlColor="red" />, text: "Крайна дата" },
+    { icon: <AccessTimeIcon htmlColor="yellow" />, text: "До изтичане" },
+    { icon: <AdsClickIcon />, text: "Действия" },
+  ];
 
   return (
     <div className="overflow-x-auto h-max ">
@@ -36,13 +46,14 @@ export default function List() {
         {/* head */}
         <thead>
           <tr className="text-base th-center bg-primary text-secondary  ">
-            <th>Име</th>
-            <th>Вид карта</th>
-            <th>Статус</th>
-            <th>Начална дата</th>
-            <th>Крайна дата</th>
-            <th>До изтичане</th>
-            <th>Действия</th>
+            {tableHeaderColumns.map((column, index) => (
+              <th key={index}>
+                <div className="flex flex-col items-center gap-1">
+                  {column.icon}
+                  <span>{column.text}</span>
+                </div>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
