@@ -14,7 +14,7 @@ export default function Dashboard() {
   }, []);
 
   const addMember = (newMember) => {
-    setMembers((prevMembers) => [...prevMembers, newMember]);
+    setMembers((prevMembers) => [newMember , ...prevMembers]);
   };
 
   return (
