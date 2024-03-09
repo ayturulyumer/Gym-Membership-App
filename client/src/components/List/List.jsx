@@ -11,7 +11,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import { useState } from "react";
 
-export default function List({ members }) {
+export default function List({ members, addMemberToState }) {
   const [showAddMember, setShowAddMember] = useState(false);
 
   const toggleAddMemberButtonHandler = () => {
@@ -73,7 +73,7 @@ export default function List({ members }) {
       </div>
 
       {showAddMember && (
-        <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} />
+        <CreateMemberModal onShowToggle={toggleAddMemberButtonHandler} addMemberToState={addMemberToState} />
       )}
     </div>
   );
