@@ -14,14 +14,17 @@ export default function SingleUser({ member }) {
 
   // Calculate the remaining days until card expires
   const calculateRemainingDays = () => {
-    const diffTime = new Date(userMembershipEndDate) - new Date(currentDateISO);
+    // setUTCHours is to remove the time and only compare dates
+    const diffTime =
+      new Date(userMembershipEndDate).setUTCHours(0, 0, 0, 0) -
+      new Date(currentDateISO).setUTCHours(0, 0, 0, 0);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
 
   return (
     <tr className="text-secondary text-lg font-bold th-center">
-      <td className="badge badge-default text-secondary">{member.name}</td>
+      <td className="badge text-secondary">{member.name}</td>
       <td>{member.cardType}</td>
       <td>
         <div
