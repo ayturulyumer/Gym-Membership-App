@@ -1,9 +1,11 @@
 import { useForm } from "../../hooks/useForm.js";
 import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext.jsx";
+import InfoMessage from "../InfoMessage/InfoMessage.jsx";
 
 export default function Login() {
-  const { onLoginHandler } = useContext(AuthContext);
+  const { onLoginHandler, message, warningMessage, errorMessage } =
+    useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
       username: "",
@@ -16,9 +18,19 @@ export default function Login() {
     <div className="flex h-screen bg-primary">
       <div className="w-full max-w-xs m-auto bg-secondary rounded p-5">
         <header>
-          <h1 className="text-center text-primary font-bold mb-4 ">
-            Влезте в вашият акаунт
-          </h1>
+          {message === "success" ? (
+            <InfoMessage statusMessage={message} />
+          ) : message === "warning" ? (
+            <InfoMessage statusMessage={message} textMessage={warningMessage} />
+          ) : message === "error" ? (
+            <InfoMessage statusMessage={message} textMessage={errorMessage} />
+          ) : (
+            <>
+              <h1 className="text-center text-primary font-bold mb-4 ">
+                Влезте в вашият акаунт
+              </h1>
+            </>
+          )}
         </header>
         <form method="POST" onSubmit={onSubmit}>
           <div>
