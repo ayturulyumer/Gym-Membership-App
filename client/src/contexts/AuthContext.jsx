@@ -1,22 +1,39 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import usePersistedState from "./usePersistedState.js";
+import usePersistedState from "../hooks/usePersistedState.js";
 
 import * as adminApi from "../api/adminApi.js";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
   const [auth, setAuth] = usePersistedState("auth", {});
   const navigate = useNavigate();
 
   const onLoginHandler = async (data) => {
+    // check if username and password are not empty
+    if (!data.username || !data.password) {
+      setMessage("warning");
+      setWarningMessage("Моля попълнете празните полета");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
     try {
       const user = await adminApi.login(data);
       setAuth(user);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      setMessage("error");
+      setErrorMessage(error.message);
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
     }
   };
 
@@ -33,10 +50,12 @@ export const AuthProvider = ({ children }) => {
   const contextValues = {
     onLoginHandler,
     onLogoutHandler,
-    userId: auth._ownerId,
     username: auth.username,
     token: auth.accessToken,
     isAuthenticated: !!auth.accessToken,
+    message,
+    warningMessage,
+    errorMessage,
   };
   return (
     <AuthContext.Provider value={contextValues}>
