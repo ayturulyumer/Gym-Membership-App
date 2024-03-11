@@ -4,6 +4,7 @@ import Sort from "../Sort/Sort.jsx";
 import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
 import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
 import RenewMemberModal from "../RenewMemberModal/RenewMemberModal.jsx";
+import DeleteMemberModal from "../DeleteMemberModal/DeleteMemberModal.jsx";
 import BadgeIcon from "@mui/icons-material/Badge";
 import StyleIcon from "@mui/icons-material/Style";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
@@ -13,20 +14,29 @@ import AdsClickIcon from "@mui/icons-material/AdsClick";
 import { useState } from "react";
 import { addMember } from "../../api/membersApi.js";
 
-export default function List({ members, addMemberToState }) {
+export default function List({
+  members,
+  addMemberToState,
+  renewMemberInState,
+}) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
-  const [selectedMemberForRenewal, setSelectedMemberForRenewal] =
-    useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
 
-  // When the modal opens also pass the member to selectedMemberForRenewal so it can be passed to the modal in this component
+  // When the modal opens also pass the member to selectedMember so it can be passed to the modal in this component
   const onRenewModalClick = (member) => {
-    setSelectedMemberForRenewal(member);
+    setSelectedMember(member);
     setShowRenewModal(!showRenewModal);
   };
 
   const toggleAddMemberButtonHandler = () => {
     setShowAddMember(!showAddMember);
+  };
+
+  const onDeleteModalClick = (member) => {
+    setSelectedMember(member);
+    setShowDeleteModal(!showDeleteModal);
   };
 
   // Define array of objects for table header columns
@@ -73,7 +83,7 @@ export default function List({ members, addMemberToState }) {
               key={member._id}
               member={member}
               onRenewModalClick={() => onRenewModalClick(member)}
-              showRenewModal={showRenewModal}
+              onDeleteModalClick={() => onDeleteModalClick(member)}
             />
           ))}
         </tbody>
@@ -98,8 +108,15 @@ export default function List({ members, addMemberToState }) {
       {showRenewModal && (
         <RenewMemberModal
           onClose={onRenewModalClick}
-          member={selectedMemberForRenewal}
-          addMemberToState={addMemberToState}
+          member={selectedMember}
+          renewMemberInState={renewMemberInState}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DeleteMemberModal
+          onClose={onDeleteModalClick}
+          memberName={selectedMember.name}
         />
       )}
     </div>
