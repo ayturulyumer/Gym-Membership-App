@@ -10,3 +10,8 @@ export const getAllMembers = async () => {
   const result = await request.get(`${baseUrl}/members`);
   return result;
 };
+
+export const renewMembership = async (memberId, data) => {
+  const result = await request.put(`${baseUrl}/members/${memberId}`, data);
+  return result;
+};
