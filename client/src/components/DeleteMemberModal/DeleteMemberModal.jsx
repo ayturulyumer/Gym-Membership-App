@@ -2,7 +2,11 @@ import InfoMessage from "../InfoMessage/InfoMessage.jsx";
 import * as memberApi from "../../api/membersApi.js";
 import { useState } from "react";
 
-export default function DeleteMemberModal({ onClose, member }) {
+export default function DeleteMemberModal({
+  onClose,
+  member,
+  deleteMemberFromState,
+}) {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -12,6 +16,7 @@ export default function DeleteMemberModal({ onClose, member }) {
       const deletedMember = await memberApi.deleteMember(member._id);
 
       setMessage("success");
+      deleteMemberFromState(member._id);
       setTimeout(() => {
         onClose();
         setMessage("");
