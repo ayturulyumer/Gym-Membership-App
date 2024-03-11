@@ -13,10 +13,9 @@ export default function Dashboard() {
       .catch((err) => console.log(err));
   }, []);
 
-
   //add member to state
   const addMember = (newMember) => {
-    setMembers((prevMembers) => [newMember , ...prevMembers]);
+    setMembers((prevMembers) => [newMember, ...prevMembers]);
   };
 
   // update renewed member in state
@@ -27,12 +26,23 @@ export default function Dashboard() {
       )
     );
   };
+
+  const deleteMember = (memberId) => {
+    setMembers((prevMembers) =>
+      prevMembers.filter((member) => member._id !== memberId)
+    );
+  };
   return (
     <>
       <Nav />
       <main className="mx-auto my-12 w-11/12 min-h-[calc(100vh - 13rem)] flex flex-col gap-10">
         <Stats members={members} />
-        <List members={members} addMemberToState={addMember} renewMemberInState={updateMember}/>
+        <List
+          members={members}
+          addMemberToState={addMember}
+          renewMemberInState={updateMember}
+          deleteMemberFromState={deleteMember}
+        />
       </main>
     </>
   );
