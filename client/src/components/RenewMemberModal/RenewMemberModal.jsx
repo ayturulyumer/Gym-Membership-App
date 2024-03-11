@@ -10,7 +10,7 @@ import InfoMessage from "../InfoMessage/InfoMessage.jsx";
 export default function RenewMemberModal({
   onClose,
   member,
-  addMemberToState,
+  renewMemberInState,
 }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -60,7 +60,11 @@ export default function RenewMemberModal({
     // if form values are valid
     let memberId = member._id;
     try {
-      const member = await membersApi.renewMembership(memberId, data);
+      const renewedMemberInfo = await membersApi.renewMembership(
+        memberId,
+        data
+      );
+      renewMemberInState(memberId, renewedMemberInfo);
       setMessage("success");
       setTimeout(() => {
         onClose();
