@@ -300,7 +300,7 @@ export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
               )}
               <div className="flex justify-around mt-2">
                 <button className="btn btn-error" onClick={onShowToggle}>
-                  Затвори
+                  Откажи
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
