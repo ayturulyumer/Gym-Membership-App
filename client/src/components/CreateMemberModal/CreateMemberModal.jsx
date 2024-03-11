@@ -128,7 +128,7 @@ export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
         <dialog id="my_modal_2" className="modal" open>
           <div className="modal-box modal-top">
             {message === "success" ? (
-              <InfoMessage statusMessage={message} />
+              <InfoMessage statusMessage={message}  textMessage="Членът е добавен успешно"/>
             ) : message === "warning" ? (
               <InfoMessage
                 statusMessage={message}
