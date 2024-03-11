@@ -11,17 +11,22 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import { useState } from "react";
+import { addMember } from "../../api/membersApi.js";
 
 export default function List({ members, addMemberToState }) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
+  const [selectedMemberForRenewal, setSelectedMemberForRenewal] =
+    useState(null);
 
-  const onRenewModalClick = () => {
+  // When the modal opens also pass the member to selectedMemberForRenewal so it can be passed to the modal in this component
+  const onRenewModalClick = (member) => {
+    setSelectedMemberForRenewal(member);
     setShowRenewModal(!showRenewModal);
   };
 
   const toggleAddMemberButtonHandler = () => {
-    setShowAddMember((prevState) => !prevState);
+    setShowAddMember(!showAddMember);
   };
 
   // Define array of objects for table header columns
@@ -67,7 +72,7 @@ export default function List({ members, addMemberToState }) {
             <SingleUser
               key={member._id}
               member={member}
-              onRenewModalClick={onRenewModalClick}
+              onRenewModalClick={() => onRenewModalClick(member)}
               showRenewModal={showRenewModal}
             />
           ))}
@@ -90,7 +95,13 @@ export default function List({ members, addMemberToState }) {
         />
       )}
 
-      {showRenewModal && <RenewMemberModal onClose={onRenewModalClick} />}
+      {showRenewModal && (
+        <RenewMemberModal
+          onClose={onRenewModalClick}
+          member={selectedMemberForRenewal}
+          addMemberToState={addMemberToState}
+        />
+      )}
     </div>
   );
 }
