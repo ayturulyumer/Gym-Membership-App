@@ -3,6 +3,7 @@ import Search from "../Search/Search.jsx";
 import Sort from "../Sort/Sort.jsx";
 import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
 import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
+import RenewMemberModal from "../RenewMemberModal/RenewMemberModal.jsx";
 import BadgeIcon from "@mui/icons-material/Badge";
 import StyleIcon from "@mui/icons-material/Style";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
@@ -13,6 +14,11 @@ import { useState } from "react";
 
 export default function List({ members, addMemberToState }) {
   const [showAddMember, setShowAddMember] = useState(false);
+  const [showRenewModal, setShowRenewModal] = useState(false);
+
+  const onRenewModalClick = () => {
+    setShowRenewModal(!showRenewModal);
+  };
 
   const toggleAddMemberButtonHandler = () => {
     setShowAddMember((prevState) => !prevState);
@@ -58,7 +64,12 @@ export default function List({ members, addMemberToState }) {
         </thead>
         <tbody>
           {members.map((member) => (
-            <SingleUser key={member._id} member={member} />
+            <SingleUser
+              key={member._id}
+              member={member}
+              onRenewModalClick={onRenewModalClick}
+              showRenewModal={showRenewModal}
+            />
           ))}
         </tbody>
       </table>
@@ -78,6 +89,8 @@ export default function List({ members, addMemberToState }) {
           addMemberToState={addMemberToState}
         />
       )}
+
+      {showRenewModal && <RenewMemberModal onClose={onRenewModalClick} />}
     </div>
   );
 }
