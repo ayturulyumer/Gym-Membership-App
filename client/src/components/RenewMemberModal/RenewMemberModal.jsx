@@ -2,8 +2,16 @@ import { useState } from "react";
 import { useForm } from "../../hooks/useForm.js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import convertCardTypeToBulgarian from "../../utils/convertCardTypeToCyrillic.js";
+import * as membersApi from "../../api/membersApi.js";
+import InfoMessage from "../InfoMessage/InfoMessage.jsx";
 
-export default function RenewMemberModal({ onClose }) {
+export default function RenewMemberModal({
+  onClose,
+  member,
+  addMemberToState,
+}) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [cardType, setCardType] = useState("default");
@@ -11,8 +19,60 @@ export default function RenewMemberModal({ onClose }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [warningMessage, setWarningMessage] = useState("");
 
-  const onRenewMemberHandler = () => {
-    console.log("RENEW SUCCESSFUL");
+  const onRenewMemberHandler = async (data) => {
+    data.cardType = convertCardTypeToBulgarian(cardType);
+    data.startDate = startDate;
+    data.endDate = endDate;
+
+    // Check if cardType is default
+    if (data.cardType === "default") {
+      setMessage("warning");
+      setWarningMessage("Моля изберете  вид карта");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
+    // Check if Dates are empty
+    if (
+      (data.cardType == !"default" && data.startDate === null) ||
+      data.endDate === null
+    ) {
+      setMessage("warning");
+      setWarningMessage("Моля изберете начална и крайна дата");
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+      return;
+    }
+
+    // change the workouts
+
+    if (data.cardType === "20 тренировки") {
+      data.workouts = 20;
+    } else if (data.cardType === "25 тренировки") {
+      data.workouts = 25;
+    } else {
+      data.workouts = "";
+    }
+
+    // if form values are valid
+    let memberId = member._id;
+    try {
+      const member = await membersApi.renewMembership(memberId, data);
+      setMessage("success");
+      setTimeout(() => {
+        onClose();
+        setMessage("");
+      }, 2000);
+    } catch (error) {
+      setMessage("error");
+      setErrorMessage(error.message);
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
+    }
   };
 
   const { values, changeHandler, onSubmit } = useForm(
@@ -70,11 +130,11 @@ export default function RenewMemberModal({ onClose }) {
             <InfoMessage statusMessage={message} textMessage={errorMessage} />
           ) : (
             <>
-              <h1 className="text-center text-info font-extrabold mb-4">
+              <h1 className="text-center text-success font-extrabold mb-4">
                 Подновяване на членство
               </h1>
               <h3 className="text-center text-secondary font-bold mb-4">
-                Моля, попълнете празните полета
+                Моля , изберете вид карта
               </h3>
               <p className="text-center  mb-4">
                 Полетата с * са задължителни !
@@ -82,7 +142,11 @@ export default function RenewMemberModal({ onClose }) {
             </>
           )}
 
-          <form className="flex flex-col gap-10 mt-4" method="POST">
+          <form
+            className="flex flex-col gap-10 mt-4"
+            method="POST"
+            onSubmit={onSubmit}
+          >
             <label className="input input-bordered flex items-center gap-2 text-secondary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +167,7 @@ export default function RenewMemberModal({ onClose }) {
                 type="text"
                 className="grow"
                 name="name"
-                value="BRATAN"
+                value={member.name}
                 disabled
               />
             </label>
