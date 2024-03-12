@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NoteIcon from "@mui/icons-material/Note";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import RemoveIcon from '@mui/icons-material/Remove';
+import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import convertDateToBulgarian from "../../utils/convertDateToBulgarian.js";
 
@@ -80,9 +80,14 @@ export default function SingleUser({
           </div>
         </td>
         <td className="flex gap-2 justify-center">
-          <button className="tooltip" data-tip="Редактиране">
-            <RemoveIcon htmlColor="yellow" />
-          </button>{" "}
+          {member.cardType.includes("тренировки") && (
+            <button
+              className="tooltip"
+              data-tip="Намаляне на брой на тренировки"
+            >
+              <RemoveIcon htmlColor="yellow" />
+            </button>
+          )}
           <button
             className="tooltip"
             data-tip="Подновяване"
