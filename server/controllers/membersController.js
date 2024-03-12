@@ -49,4 +49,15 @@ router.delete("/:memberId", async (req, res) => {
   }
 });
 
+router.patch("/:memberId", async (req, res) => {
+  try {
+    const member = await membersManager.decreaseWorkout(req.params.memberId);
+    res.status(200).json(member);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
