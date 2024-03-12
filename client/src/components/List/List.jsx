@@ -18,6 +18,7 @@ export default function List({
   members,
   addMemberToState,
   renewMemberInState,
+  deleteMemberFromState,
 }) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
@@ -116,7 +117,8 @@ export default function List({
       {showDeleteModal && (
         <DeleteMemberModal
           onClose={onDeleteModalClick}
-          memberName={selectedMember.name}
+          member={selectedMember}
+          deleteMemberFromState={deleteMemberFromState}
         />
       )}
     </div>
