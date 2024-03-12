@@ -9,6 +9,7 @@ export default function SingleUser({
   member,
   onRenewModalClick,
   onDeleteModalClick,
+  onDecreaseModalClick,
 }) {
   // Get the current date & current member membership end date
   const currentDate = new Date();
@@ -35,12 +36,16 @@ export default function SingleUser({
         <td>
           <div
             className={
-              currentDateISO > userMembershipEndDate
+              currentDateISO > userMembershipEndDate ||
+              (member.workouts !== "" && member.workouts < 1)
                 ? "badge badge-error text-secondary font-bold"
                 : "badge badge-success text-secondary font-bold"
             }
           >
-            {currentDateISO > userMembershipEndDate ? "Изтекъл" : "Активен"}
+            {currentDateISO > userMembershipEndDate ||
+            (member.workouts !== "" && member.workouts < 1)
+              ? "Изтекъл"
+              : "Активен"}
           </div>
         </td>
         <td>
@@ -84,6 +89,7 @@ export default function SingleUser({
             <button
               className="tooltip"
               data-tip="Намаляне на брой на тренировки"
+              onClick={onDecreaseModalClick}
             >
               <RemoveIcon htmlColor="yellow" />
             </button>
