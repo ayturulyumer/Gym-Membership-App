@@ -22,7 +22,7 @@ export default function Dashboard() {
   const updateMember = (memberId, updatedData) => {
     setMembers((prevMembers) =>
       prevMembers.map((member) =>
-        member._id === memberId ? { ...member, ...updatedData } : member
+        member._id === memberId ? (member = updatedData) : member
       )
     );
   };
@@ -40,7 +40,7 @@ export default function Dashboard() {
         <List
           members={members}
           addMemberToState={addMember}
-          renewMemberInState={updateMember}
+          updateMemberInState={updateMember}
           deleteMemberFromState={deleteMember}
         />
       </main>
