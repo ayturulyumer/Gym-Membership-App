@@ -15,3 +15,7 @@ export const renewMembership = async (memberId, data) => {
   const result = await request.put(`${baseUrl}/members/${memberId}`, data);
   return result;
 };
+
+export const deleteMember = async (memberId) => {
+  const result = await request.del(`${baseUrl}/members/${memberId}`);
+};
