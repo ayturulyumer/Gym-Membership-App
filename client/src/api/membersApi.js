@@ -19,3 +19,8 @@ export const renewMembership = async (memberId, data) => {
 export const deleteMember = async (memberId) => {
   const result = await request.del(`${baseUrl}/members/${memberId}`);
 };
+
+export const decreaseMemberWorkout = async (memberId) => {
+  const result = await request.patch(`${baseUrl}/members/${memberId}`);
+  return result;
+};
