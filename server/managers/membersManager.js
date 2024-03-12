@@ -4,9 +4,8 @@ exports.create = (memberData) => Member.create(memberData);
 
 exports.getAll = () => Member.find();
 
-exports.update = (memberId, memberData) => {
-  const updatedMember = Member.findByIdAndUpdate(memberId, memberData);
-  return updatedMember;
-};
+exports.update = (memberId, memberData) => Member.findByIdAndUpdate(memberId, memberData, { new: true });
+
+
 
 exports.delete = (memberId) => Member.findByIdAndDelete(memberId);
