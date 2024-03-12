@@ -5,6 +5,7 @@ import AddMemberButton from "../AddMemberButton/AddMemberButton.jsx";
 import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
 import RenewMemberModal from "../RenewMemberModal/RenewMemberModal.jsx";
 import DeleteMemberModal from "../DeleteMemberModal/DeleteMemberModal.jsx";
+import DecreaseWorkoutConfirmationModal from "../DecreaseWorkoutConfirmationModal/DecreaseWorkoutConfirmationModal.jsx";
 import BadgeIcon from "@mui/icons-material/Badge";
 import StyleIcon from "@mui/icons-material/Style";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
@@ -17,12 +18,14 @@ import { addMember } from "../../api/membersApi.js";
 export default function List({
   members,
   addMemberToState,
-  renewMemberInState,
+  updateMemberInState,
   deleteMemberFromState,
 }) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDecreaseWorkoutModal, setShowDecreaseWorkoutModal] =
+    useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
 
   // When the modal opens also pass the member to selectedMember so it can be passed to the modal in this component
@@ -40,6 +43,10 @@ export default function List({
     setShowDeleteModal(!showDeleteModal);
   };
 
+  const onDecreaseModalClick = (member) => {
+    setSelectedMember(member);
+    setShowDecreaseWorkoutModal(!showDecreaseWorkoutModal);
+  };
   // Define array of objects for table header columns
   const tableHeaderColumns = [
     { icon: <BadgeIcon />, text: "Име" },
@@ -85,6 +92,7 @@ export default function List({
               member={member}
               onRenewModalClick={() => onRenewModalClick(member)}
               onDeleteModalClick={() => onDeleteModalClick(member)}
+              onDecreaseModalClick={() => onDecreaseModalClick(member)}
             />
           ))}
         </tbody>
@@ -110,7 +118,7 @@ export default function List({
         <RenewMemberModal
           onClose={onRenewModalClick}
           member={selectedMember}
-          renewMemberInState={renewMemberInState}
+          renewMemberInState={updateMemberInState}
         />
       )}
 
@@ -119,6 +127,14 @@ export default function List({
           onClose={onDeleteModalClick}
           member={selectedMember}
           deleteMemberFromState={deleteMemberFromState}
+        />
+      )}
+
+      {showDecreaseWorkoutModal && (
+        <DecreaseWorkoutConfirmationModal
+          onClose={onDecreaseModalClick}
+          member={selectedMember}
+          updateMemberInState={updateMemberInState}
         />
       )}
     </div>
