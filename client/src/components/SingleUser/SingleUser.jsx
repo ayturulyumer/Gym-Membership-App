@@ -1,14 +1,14 @@
 import { useState } from "react";
 import NoteIcon from "@mui/icons-material/Note";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import EditIcon from "@mui/icons-material/Edit";
+import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from "@mui/icons-material/Delete";
 import convertDateToBulgarian from "../../utils/convertDateToBulgarian.js";
 
 export default function SingleUser({
   member,
-  showRenewModal,
   onRenewModalClick,
+  onDeleteModalClick,
 }) {
   // Get the current date & current member membership end date
   const currentDate = new Date();
@@ -80,6 +80,9 @@ export default function SingleUser({
           </div>
         </td>
         <td className="flex gap-2 justify-center">
+          <button className="tooltip" data-tip="Редактиране">
+            <RemoveIcon htmlColor="yellow" />
+          </button>{" "}
           <button
             className="tooltip"
             data-tip="Подновяване"
@@ -87,10 +90,11 @@ export default function SingleUser({
           >
             <AutorenewIcon htmlColor="green" />
           </button>{" "}
-          <button className="tooltip" data-tip="Редактиране">
-            <EditIcon htmlColor="yellow" />
-          </button>{" "}
-          <button className="tooltip" data-tip="Изтриване">
+          <button
+            className="tooltip"
+            data-tip="Изтриване"
+            onClick={onDeleteModalClick}
+          >
             <DeleteIcon htmlColor="red" />
           </button>{" "}
         </td>
