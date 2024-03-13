@@ -24,3 +24,8 @@ export const decreaseMemberWorkout = async (memberId) => {
   const result = await request.patch(`${baseUrl}/members/${memberId}`);
   return result;
 };
+
+export const searchMembers = async (query) => {
+  const result = await request.get(`${baseUrl}/members/search/?name=${query}`);
+  return result;
+};
