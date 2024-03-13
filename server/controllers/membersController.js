@@ -60,4 +60,18 @@ router.patch("/:memberId", async (req, res) => {
   }
 });
 
+router.get("/search", async (req, res) => {
+  try {
+    const foundMembers = await membersManager.search(req.query.name);
+    if (foundMembers.length === 0) {
+      throw new Error("Няма намерени членове");
+    }
+    res.status(200).json(foundMembers);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;

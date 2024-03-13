@@ -20,6 +20,12 @@ exports.decreaseWorkout = async (memberId) => {
 
 exports.search = (searchCriteria) => {
   if (searchCriteria) {
-    return Member.find({ name: searchCriteria }).lean();
+    // Create a regular expression pattern for partial matching and make it case-insensitive
+    const regexPattern = new RegExp(searchCriteria, "i");
+
+    // Use the regex pattern to find members whose names match partially with the searchCriteria
+    return Member.find({ name: { $regex: regexPattern } }).lean();
+  } else {
+    throw Error;
   }
 };
