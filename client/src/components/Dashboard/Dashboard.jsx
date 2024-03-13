@@ -5,12 +5,15 @@ import { useState, useEffect } from "react";
 import * as membersApi from "../../api/membersApi.js";
 export default function Dashboard() {
   const [members, setMembers] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
+    setShowLoading(true);
     membersApi
       .getAllMembers()
       .then((data) => setMembers(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setShowLoading(false));
   }, []);
 
   //add member to state
@@ -37,11 +40,13 @@ export default function Dashboard() {
       <Nav />
       <main className="mx-auto my-12 w-11/12 min-h-[calc(100vh - 13rem)] flex flex-col gap-10">
         <Stats members={members} />
+
         <List
           members={members}
           addMemberToState={addMember}
           updateMemberInState={updateMember}
           deleteMemberFromState={deleteMember}
+          loading={showLoading}
         />
       </main>
     </>

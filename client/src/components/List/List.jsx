@@ -6,6 +6,7 @@ import CreateMemberModal from "../CreateMemberModal/CreateMemberModal.jsx";
 import RenewMemberModal from "../RenewMemberModal/RenewMemberModal.jsx";
 import DeleteMemberModal from "../DeleteMemberModal/DeleteMemberModal.jsx";
 import DecreaseWorkoutConfirmationModal from "../DecreaseWorkoutConfirmationModal/DecreaseWorkoutConfirmationModal.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
 import BadgeIcon from "@mui/icons-material/Badge";
 import StyleIcon from "@mui/icons-material/Style";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
@@ -20,6 +21,7 @@ export default function List({
   addMemberToState,
   updateMemberInState,
   deleteMemberFromState,
+  loading,
 }) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
@@ -97,6 +99,8 @@ export default function List({
           ))}
         </tbody>
       </table>
+
+      {loading && <Spinner />}
 
       <div className="join grid grid-cols-2">
         <button className="join-item btn btn-outline text-secondary">
