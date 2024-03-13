@@ -29,3 +29,8 @@ export const searchMembers = async (query) => {
   const result = await request.get(`${baseUrl}/members/search/?name=${query}`);
   return result;
 };
+
+export const getAllMembersCount = async () => {
+  const result = await request.get(`${baseUrl}/members/count`);
+  return result;
+};

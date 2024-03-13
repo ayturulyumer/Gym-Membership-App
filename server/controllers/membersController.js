@@ -74,4 +74,25 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/count", async (req, res) => {
+  try {
+    const membersCount = await membersManager.getAllMembersCount();
+    res.status(200).json(membersCount);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+router.get("/expiring", async (req, res) => {
+  try {
+    const expiringMembers = await membersManager.getExpiringMembers()
+    res.status(200).json(expiringMembers);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+});
 module.exports = router;
