@@ -87,8 +87,19 @@ router.get("/count", async (req, res) => {
 
 router.get("/expiring", async (req, res) => {
   try {
-    const expiringMembers = await membersManager.getExpiringMembers()
+    const expiringMembers = await membersManager.getExpiringMembersCount();
     res.status(200).json(expiringMembers);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+});
+
+router.get("/expired", async (req, res) => {
+  try {
+    const expiredMembers = await membersManager.getExpiredMembersCount();
+    res.status(200).json(expiredMembers);
   } catch (error) {
     res.status(404).json({
       message: error.message,
