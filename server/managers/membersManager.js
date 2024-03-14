@@ -25,7 +25,40 @@ exports.search = (searchCriteria) => {
 
     // Use the regex pattern to find members whose names match partially with the searchCriteria
     return Member.find({ name: { $regex: regexPattern } }).lean();
-  } else {
-    throw Error;
   }
+};
+
+exports.getAllMembersCount = () => Member.countDocuments({});
+
+exports.getExpiringMembersCount = async () => {
+  const currentDate = new Date();
+  currentDate.setUTCHours(0, 0, 0, 0); // Set time to 00:00:00
+
+  // Get the date that is 2 days from now
+  const twoDaysFromNow = new Date();
+  twoDaysFromNow.setUTCHours(0, 0, 0, 0); // Set time to 00:00:00
+  twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
+
+  // Query to find documents where the endDate is within the next 2 days or less
+  const expiringMembers = await Member.countDocuments({
+    endDate: {
+      $lte: twoDaysFromNow, // End date is less than or equal to twoDaysFromNow
+      $gte: currentDate, // End date is greater than or equal to currentDate
+    },
+  });
+  return expiringMembers;
+};
+
+exports.getExpiredMembersCount = async () => {
+  const currentDate = new Date();
+  currentDate.setUTCHours(0, 0, 0, 0); // Set time to 00:00:00
+
+  // Query to find documents where the endDate is less than the current date
+  const expiredMembers = await Member.countDocuments({
+    $or: [
+      { workouts: { $lt: 1 } }, // Number of workouts is less than 1
+      { endDate: { $lt: currentDate } }, // End date is less than current date
+    ],
+  });
+  return expiredMembers;
 };
