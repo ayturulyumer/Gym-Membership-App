@@ -34,3 +34,8 @@ export const getAllMembersCount = async () => {
   const result = await request.get(`${baseUrl}/members/count`);
   return result;
 };
+
+export const getExpiringMembersCount = async () => {
+  const result = await request.get(`${baseUrl}/members/expiring`);
+  return result;
+};
