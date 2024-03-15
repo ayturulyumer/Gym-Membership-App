@@ -10,44 +10,59 @@ export default function Dashboard() {
   const [searchValue, setSearchValue] = useState("");
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [sortValue, setSortValue] = useState("default");
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
+    const fetchMembers = async () => {
       setShowLoading(true);
-      if (searchValue === "") {
-        // Fetch all members if search query is empty
-        membersApi
-          .getAllMembers()
-          .then((data) => setMembers(data))
-          .catch((err) => {
-            setMessage("error");
-            setErrorMessage(err.message);
-            setTimeout(() => {
-              setMessage("");
-            }, 1000);
-          })
-          .finally(() => setShowLoading(false));
-      } else {
-        // Fetch members based on search query
-        membersApi
-          .searchMembers(searchValue)
-          .then((data) => setMembers(data))
-          .catch((err) => {
-            setMessage("error");
-            setErrorMessage(err.message);
-            setTimeout(() => {
-              setMessage("");
-            }, 1000);
-          })
-          .finally(() => setShowLoading(false));
+      try {
+        let fetchedMembers;
+        if (searchValue === "") {
+          // Fetch all members if search query is empty
+          fetchedMembers = await membersApi.getAllMembers();
+        } else {
+          // Fetch members based on search query
+          fetchedMembers = await membersApi.searchMembers(searchValue);
+        }
+        setMembers(fetchedMembers);
+      } catch (err) {
+        setMessage("error");
+        setErrorMessage(err.message);
+        setTimeout(() => {
+          setMessage("");
+        }, 1000);
+      } finally {
+        setShowLoading(false);
       }
-    }, 500); // Delay of 500ms
+    };
+
+    const timerId = setTimeout(fetchMembers, 500); // Set timeout for fetching members
 
     // Cleanup function to clear the timeout
     return () => clearTimeout(timerId);
-  }, [searchValue]);
+  }, [searchValue]); // Only trigger the effect when searchValue changes
 
-  console.log(members);
+  useEffect(() => {
+    // Fetch sorted members based on the selected sorting option
+    if (sortValue !== "default") {
+      setShowLoading(true);
+      membersApi
+        .getSortedMembers(sortValue)
+        .then((data) => setMembers(data))
+        .catch((err) => {
+          setMessage("error");
+          setErrorMessage(err.message);
+          setTimeout(() => {
+            setMessage("");
+          }, 1000);
+        })
+        .finally(() => setShowLoading(false));
+    }
+  }, [sortValue]); // Only trigger the effect when sortValue changes
+
+  const onSortChange = (value) => {
+    setSortValue(value);
+  };
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
@@ -90,6 +105,7 @@ export default function Dashboard() {
           loading={showLoading}
           searchValue={searchValue}
           handleSearchChange={handleSearchChange}
+          onSortChange={onSortChange}
         />
       </main>
     </>
