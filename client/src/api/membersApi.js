@@ -30,12 +30,25 @@ export const searchMembers = async (query) => {
   return result;
 };
 
-export const getAllMembersCount = async () => {
-  const result = await request.get(`${baseUrl}/members/count`);
+export const getExpiringMembers = async () => {
+  const result = await request.get(`${baseUrl}/members/expiring`);
   return result;
 };
 
-export const getExpiringMembersCount = async () => {
-  const result = await request.get(`${baseUrl}/members/expiring`);
+export const getExpiredMembers = async () => {
+  const result = await request.get(`${baseUrl}/members/expired`);
+  return result;
+};
+
+export const getSortedMembers = async (sortValue) => {
+  console.log(sortValue);
+  let result;
+  if (sortValue === "expiringMemberships") {
+    result = await request.get(`${baseUrl}/members/expiring`);
+  } else if (sortValue === "expiredMemberships") {
+    result = await request.get(`${baseUrl}/members/expired`);
+  } else if (sortValue === "remainingWorkouts") {
+    result = await request.get(`${baseUrl}/members/remainingWorkouts`);
+  }
   return result;
 };
