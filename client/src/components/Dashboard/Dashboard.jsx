@@ -44,20 +44,18 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Fetch sorted members based on the selected sorting option
-    if (sortValue !== "default") {
-      setShowLoading(true);
-      membersApi
-        .getSortedMembers(sortValue)
-        .then((data) => setMembers(data))
-        .catch((err) => {
-          setMessage("error");
-          setErrorMessage(err.message);
-          setTimeout(() => {
-            setMessage("");
-          }, 1000);
-        })
-        .finally(() => setShowLoading(false));
-    }
+    setShowLoading(true);
+    membersApi
+      .getSortedMembers(sortValue)
+      .then((data) => setMembers(data))
+      .catch((err) => {
+        setMessage("error");
+        setErrorMessage(err.message);
+        setTimeout(() => {
+          setMessage("");
+        }, 1000);
+      })
+      .finally(() => setShowLoading(false));
   }, [sortValue]); // Only trigger the effect when sortValue changes
 
   const onSortChange = (value) => {
