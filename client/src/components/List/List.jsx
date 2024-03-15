@@ -22,6 +22,9 @@ export default function List({
   updateMemberInState,
   deleteMemberFromState,
   loading,
+  handleSearchChange,
+  searchValue,
+  onSortChange,
 }) {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
@@ -49,6 +52,7 @@ export default function List({
     setSelectedMember(member);
     setShowDecreaseWorkoutModal(!showDecreaseWorkoutModal);
   };
+
   // Define array of objects for table header columns
   const tableHeaderColumns = [
     { icon: <BadgeIcon />, text: "Име" },
@@ -69,9 +73,12 @@ export default function List({
         Списък с членове
       </h1>
       <div className="flex  justify-between align-baseline mb-2 gap-5 ">
-        <Search />
+        <Search
+          searchValue={searchValue}
+          handleSearchChange={handleSearchChange}
+        />
         <AddMemberButton showAddMemberHandler={toggleAddMemberButtonHandler} />
-        <Sort />
+        <Sort onSortChange={onSortChange} />
       </div>
       <table className="table table-zebra  border-black table-xs phone:table-sm  tablet:table-md laptop:tablet-lg ">
         {/* head */}
