@@ -41,7 +41,6 @@ export const getExpiredMembers = async () => {
 };
 
 export const getSortedMembers = async (sortValue) => {
-  console.log(sortValue);
   let result;
   if (sortValue === "expiringMemberships") {
     result = await request.get(`${baseUrl}/members/expiring`);
@@ -49,6 +48,8 @@ export const getSortedMembers = async (sortValue) => {
     result = await request.get(`${baseUrl}/members/expired`);
   } else if (sortValue === "remainingWorkouts") {
     result = await request.get(`${baseUrl}/members/remainingWorkouts`);
+  } else {
+    result = await request.get(`${baseUrl}/members`);
   }
   return result;
 };
