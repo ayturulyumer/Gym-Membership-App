@@ -146,7 +146,7 @@ export default function CreateMemberModal({ onShowToggle, addMemberToState }) {
                   />
                 ) : (
                   <>
-                    <h1 className="text-center text-info font-extrabold mb-4">
+                    <h1 className="text-center text-success font-extrabold mb-4">
                       Добавяне на член
                     </h1>
                     <h3 className="text-center text-secondary font-bold mb-4">
