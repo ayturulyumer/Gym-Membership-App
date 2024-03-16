@@ -1,5 +1,13 @@
 const buildOptions = (data) => {
+  const accessToken = JSON.parse(localStorage.getItem("auth"))?.accessToken;
+
   const options = {};
+
+  if (accessToken) {
+    options.headers = {
+      Authorization: accessToken,
+    };
+  }
 
   if (data) {
     options.body = JSON.stringify(data);
