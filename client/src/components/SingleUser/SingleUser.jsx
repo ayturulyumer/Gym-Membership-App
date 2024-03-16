@@ -25,25 +25,25 @@ export default function SingleUser({
       new Date(userMembershipEndDate).setUTCHours(0, 0, 0, 0) -
       new Date(currentDateISO).setUTCHours(0, 0, 0, 0);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return diffDays + 1;
   };
 
   return (
     <>
-      <tr className="text-secondary text-lg font-bold th-center">
+      <tr className="text-secondary text-sm font-bold th-center tablet:text-xs hover:bg-teal-950">
         <td className="badge text-secondary">{member.name}</td>
         <td>{member.cardType}</td>
         <td>
           <div
             className={
               currentDateISO > userMembershipEndDate ||
-              (member.workouts !== "" && member.workouts < 1)
+              (member.workouts !== null && member.workouts < 1)
                 ? "badge badge-error text-secondary font-bold"
                 : "badge badge-success text-secondary font-bold"
             }
           >
             {currentDateISO > userMembershipEndDate ||
-            (member.workouts !== "" && member.workouts < 1)
+            (member.workouts !== null && member.workouts < 1)
               ? "Изтекъл"
               : "Активен"}
           </div>
@@ -84,7 +84,7 @@ export default function SingleUser({
             })()}
           </div>
         </td>
-        <td className="flex gap-2 justify-center">
+        <td className="flex gap-1 justify-center">
           {member.cardType.includes("тренировки") && (
             <button
               className="tooltip"
