@@ -68,7 +68,7 @@ export default function List({
   ];
 
   return (
-    <div className="overflow-x-auto h-max ">
+    <div className="overflow-x-auto h-max  ">
       <h1 className="text-center text-md mb-5 font-bold text-secondary">
         Списък с членове
       </h1>
@@ -80,13 +80,13 @@ export default function List({
         <AddMemberButton showAddMemberHandler={toggleAddMemberButtonHandler} />
         <Sort onSortChange={onSortChange} />
       </div>
-      <table className="table table-zebra  border-black table-xs phone:table-sm  tablet:table-md laptop:tablet-lg ">
+      <table className="table table-zebra border-black table-xs   tablet:table-md laptop:table-lg">
         {/* head */}
         <thead>
-          <tr className="text-base th-center bg-primary text-secondary  ">
+          <tr className="text-xs  bg-primary text-secondary  laptop:text-lg ">
             {tableHeaderColumns.map((column, index) => (
               <th key={index}>
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col items-center gap-2">
                   {column.icon}
                   <span>{column.text}</span>
                 </div>
@@ -108,15 +108,6 @@ export default function List({
       </table>
 
       {loading && <Spinner />}
-
-      <div className="join grid grid-cols-2">
-        <button className="join-item btn btn-outline text-secondary">
-          Предишна страница
-        </button>
-        <button className="join-item btn btn-outline text-secondary">
-          Следваща страница
-        </button>
-      </div>
 
       {showAddMember && (
         <CreateMemberModal
