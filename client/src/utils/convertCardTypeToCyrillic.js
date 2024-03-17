@@ -1,4 +1,4 @@
-export default function convertCardTypeToCyrillic(value) {
+export default function convertCardTypeToBulgarian(value) {
   switch (value) {
     case "monthly":
       return "Месечна";
