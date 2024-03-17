@@ -64,6 +64,7 @@ export default function RenewMemberModal({
         memberId,
         data
       );
+
       renewMemberInState(memberId, renewedMemberInfo);
       setMessage("success");
       setTimeout(() => {
@@ -130,18 +131,20 @@ export default function RenewMemberModal({
             <InfoMessage statusMessage={message} textMessage={warningMessage} />
           ) : message === "error" ? (
             <InfoMessage statusMessage={message} textMessage={errorMessage} />
-          ) : message !== "success" && (
-            <>
-              <h1 className="text-center text-success font-extrabold mb-4">
-                Подновяване на членство
-              </h1>
-              <h3 className="text-center text-secondary font-bold mb-4">
-                Моля , изберете вид карта
-              </h3>
-              <p className="text-center  mb-4">
-                Полетата с * са задължителни !
-              </p>
-            </>
+          ) : (
+            message !== "success" && (
+              <>
+                <h1 className="text-center text-success font-extrabold mb-4">
+                  Подновяване на членство
+                </h1>
+                <h3 className="text-center text-secondary font-bold mb-4">
+                  Моля , изберете вид карта
+                </h3>
+                <p className="text-center  mb-4">
+                  Полетата с * са задължителни !
+                </p>
+              </>
+            )
           )}
           {message === "success" ? (
             <InfoMessage
@@ -327,7 +330,7 @@ export default function RenewMemberModal({
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>
                 </button>
