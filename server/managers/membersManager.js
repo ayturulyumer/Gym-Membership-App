@@ -28,9 +28,7 @@ exports.search = (searchCriteria) => {
   }
 };
 
-exports.getAllMembersCount = () => Member.countDocuments({});
-
-exports.getExpiringMembersCount = async () => {
+exports.getExpiringMembers = async () => {
   const currentDate = new Date();
   currentDate.setUTCHours(0, 0, 0, 0); // Set time to 00:00:00
 
@@ -40,7 +38,7 @@ exports.getExpiringMembersCount = async () => {
   twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
 
   // Query to find documents where the endDate is within the next 2 days or less
-  const expiringMembers = await Member.countDocuments({
+  const expiringMembers = await Member.find({
     endDate: {
       $lte: twoDaysFromNow, // End date is less than or equal to twoDaysFromNow
       $gte: currentDate, // End date is greater than or equal to currentDate
@@ -49,16 +47,28 @@ exports.getExpiringMembersCount = async () => {
   return expiringMembers;
 };
 
-exports.getExpiredMembersCount = async () => {
+exports.getExpiredMembers = async () => {
   const currentDate = new Date();
   currentDate.setUTCHours(0, 0, 0, 0); // Set time to 00:00:00
 
-  // Query to find documents where the endDate is less than the current date
-  const expiredMembers = await Member.countDocuments({
+  // Query to find documents where the endDate is less than the current date or workouts are less than 1
+  const expiredMembers = await Member.find({
     $or: [
       { workouts: { $lt: 1 } }, // Number of workouts is less than 1
       { endDate: { $lt: currentDate } }, // End date is less than current date
     ],
   });
   return expiredMembers;
+};
+
+exports.getMembersSortedByWorkouts = async () => {
+  // Fetch all members
+  const allMembers = await Member.find({
+    workouts: { $exists: true, $ne: null },
+  });
+
+  // Sort allMembers by workouts in ascending order
+  allMembers.sort((a, b) => a.workouts - b.workouts);
+
+  return allMembers;
 };
