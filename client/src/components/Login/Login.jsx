@@ -50,7 +50,7 @@ export default function Login() {
               Парола
             </label>
             <input
-              className="w-full p-2 mb-6 bg-primary text-secondaryborder-b-2 border-indigo-500 outline-none"
+              className="w-full p-2 mb-6 bg-primary text-secondary border-b-2 border-indigo-500 outline-none"
               type="password"
               name="password"
               value={values.password}
