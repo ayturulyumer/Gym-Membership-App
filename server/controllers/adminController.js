@@ -5,7 +5,7 @@ const adminManager = require("../managers/adminManager.js");
 router.post("/login", async (req, res) => {
   try {
     const result = await adminManager.login(req.body);
-    res.json(result);
+    res.status(200).json(result);
   } catch (err) {
     res.status(400).json({
       message: err.message,
@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", async (req, res) => {
   res.clearCookie("token");
-  res.send("Succesfully logged out")
+  res.json({ message: "Successfully logged out" });
 });
 
 module.exports = router;
