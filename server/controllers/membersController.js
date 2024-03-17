@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const membersManager = require("../managers/membersManager.js");
+const { isAuth } = require("../middlewares/authMiddleware.js");
 
 router.get("/", async (req, res) => {
   try {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAuth, async (req, res) => {
   try {
     const result = await membersManager.create(req.body);
     res.status(200).json(result);
@@ -24,7 +25,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:memberId", async (req, res) => {
+router.put("/:memberId", isAuth, async (req, res) => {
   try {
     const updatedMember = await membersManager.update(
       req.params.memberId,
@@ -38,7 +39,7 @@ router.put("/:memberId", async (req, res) => {
   }
 });
 
-router.delete("/:memberId", async (req, res) => {
+router.delete("/:memberId", isAuth, async (req, res) => {
   try {
     await membersManager.delete(req.params.memberId);
     res.status(200).json("Successfully deleted");
@@ -49,7 +50,7 @@ router.delete("/:memberId", async (req, res) => {
   }
 });
 
-router.patch("/:memberId", async (req, res) => {
+router.patch("/:memberId", isAuth, async (req, res) => {
   try {
     const member = await membersManager.decreaseWorkout(req.params.memberId);
     res.status(200).json(member);
@@ -74,20 +75,9 @@ router.get("/search", async (req, res) => {
   }
 });
 
-router.get("/count", async (req, res) => {
-  try {
-    const membersCount = await membersManager.getAllMembersCount();
-    res.status(200).json(membersCount);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-});
-
 router.get("/expiring", async (req, res) => {
   try {
-    const expiringMembers = await membersManager.getExpiringMembersCount();
+    const expiringMembers = await membersManager.getExpiringMembers();
     res.status(200).json(expiringMembers);
   } catch (error) {
     res.status(404).json({
@@ -98,7 +88,7 @@ router.get("/expiring", async (req, res) => {
 
 router.get("/expired", async (req, res) => {
   try {
-    const expiredMembers = await membersManager.getExpiredMembersCount();
+    const expiredMembers = await membersManager.getExpiredMembers();
     res.status(200).json(expiredMembers);
   } catch (error) {
     res.status(404).json({
@@ -106,4 +96,16 @@ router.get("/expired", async (req, res) => {
     });
   }
 });
+
+router.get("/remainingWorkouts", async (req, res) => {
+  try {
+    const sortedMembers = await membersManager.getMembersSortedByWorkouts();
+    res.status(200).json(sortedMembers);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
