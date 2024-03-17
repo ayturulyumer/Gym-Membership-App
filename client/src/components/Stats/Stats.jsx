@@ -25,7 +25,7 @@ export default function Stats() {
     }
 
     fetchData();
-  }, []);
+  }, [membersCount,expiringMembersCount,expiredMembersCount]);
 
   return (
     <div className="stats shadow bg-primary text-secondary font-bold stats-vertical laptop:stats-horizontal">
