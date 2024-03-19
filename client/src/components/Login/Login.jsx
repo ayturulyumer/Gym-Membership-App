@@ -8,7 +8,7 @@ export default function Login() {
     useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
-      username: "",
+      email: "",
       password: "",
     },
     onLoginHandler
@@ -34,14 +34,14 @@ export default function Login() {
         </header>
         <form method="POST" onSubmit={onSubmit}>
           <div>
-            <label className="block mb-2 text-indigo-500" htmlFor="username">
-              Потребителско име
+            <label className="block mb-2 text-indigo-500" htmlFor="email">
+              Имейл
             </label>
             <input
               className="w-full p-2 mb-6 bg-primary text-secondary border-b-2 border-indigo-500 outline-none"
               type="text"
-              name="username"
-              value={values.username}
+              name="email"
+              value={values.email}
               onChange={changeHandler}
             />
           </div>
