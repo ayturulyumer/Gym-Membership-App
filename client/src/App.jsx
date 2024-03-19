@@ -5,14 +5,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import AuthenticationGuard from "./guards/AuthenticationGuard.jsx";
 import LoggedInGuard from "./guards/LoggedInGuard.jsx";
+import Profile from "./components/Profile/Profile.jsx";
+import Nav from "./components/Nav/Nav.jsx";
 function App() {
   return (
     <>
       <Router>
         <AuthProvider>
+          <Nav />
           <Routes>
             <Route element={<AuthenticationGuard />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
             <Route element={<LoggedInGuard />}>
               <Route path="/" element={<Login />} />
