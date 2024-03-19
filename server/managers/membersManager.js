@@ -1,6 +1,17 @@
 const Member = require("../models/Member.js");
 
-exports.create = (memberData) => Member.create(memberData);
+exports.create = async (memberData) => {
+  // Check if member name already exists in the database
+  const existingMember = await Member.findOne({ name: memberData.name });
+
+  if (existingMember) {
+    throw new Error(`Член на име ${existingMember.name} вече съществува`);
+  }
+
+  // If member name doesn't exist, create the new member
+  return Member.create(memberData);
+};
+
 
 exports.getAll = () => Member.find();
 
