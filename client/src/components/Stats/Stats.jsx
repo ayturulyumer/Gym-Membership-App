@@ -4,7 +4,7 @@ import PersonOffIcon from "@mui/icons-material/PersonOff";
 import { useEffect, useState } from "react";
 import * as membersApi from "../../api/membersApi.js";
 
-export default function Stats() {
+export default function Stats({ members }) {
   const [membersCount, setMembersCount] = useState(null);
   const [expiringMembersCount, setExpiringMembersCount] = useState(null);
   const [expiredMembersCount, setExpiredMembersCount] = useState(null);
@@ -25,7 +25,7 @@ export default function Stats() {
     }
 
     fetchData();
-  }, [membersCount,expiringMembersCount,expiredMembersCount]);
+  }, [members]);
 
   return (
     <div className="stats shadow bg-primary text-secondary font-bold stats-vertical laptop:stats-horizontal">
