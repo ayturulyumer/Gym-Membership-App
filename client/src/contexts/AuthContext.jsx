@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   const onLoginHandler = async (data) => {
     // check if username and password are not empty
-    if (!data.username || !data.password) {
+    if (!data.email || !data.password) {
       setMessage("warning");
       setWarningMessage("Моля попълнете празните полета");
       setTimeout(() => {
