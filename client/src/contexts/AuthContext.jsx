@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const contextValues = {
     onLoginHandler,
     onLogoutHandler,
-    username: auth.username,
+    email: auth.email,
     token: auth.accessToken,
     isAuthenticated: !!auth.accessToken,
     message,
