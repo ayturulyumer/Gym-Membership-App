@@ -7,7 +7,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const databaseUser = process.env.DB_USER;
 const uri = `mongodb+srv://${databaseUser}@gym-app-prod.hvqp8qm.mongodb.net/?retryWrites=true&w=majority&appName=gym-app-prod`;
 
-console.log(databaseUser);
+
 const routes = require("./routes.js");
 const { auth } = require("./middlewares/authMiddleware.js");
 
