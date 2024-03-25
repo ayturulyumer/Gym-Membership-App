@@ -10,7 +10,7 @@ export default function DeleteMemberModal({
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log(member._id);
+
   const onDeleteHandler = async () => {
     try {
       const deletedMember = await memberApi.deleteMember(member._id);
@@ -36,7 +36,7 @@ export default function DeleteMemberModal({
           {message === "success" ? (
             <InfoMessage
               statusMessage={message}
-              textMessage={`${member.name} е успешно изтрит`}
+              textMessage={` ${member.name} е успешно изтрит`}
             />
           ) : message === "error" ? (
             <InfoMessage statusMessage={message} textMessage={errorMessage} />
