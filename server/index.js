@@ -1,12 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri =
-  "mongodb+srv://ayti:ayti1997xda@gym-app-prod.hvqp8qm.mongodb.net/?retryWrites=true&w=majority&appName=gym-app-prod";
-require("dotenv").config();
+const databaseUser = process.env.DB_USER;
+const uri = `mongodb+srv://${databaseUser}@gym-app-prod.hvqp8qm.mongodb.net/?retryWrites=true&w=majority&appName=gym-app-prod`;
 
+console.log(databaseUser);
 const routes = require("./routes.js");
 const { auth } = require("./middlewares/authMiddleware.js");
 
@@ -35,10 +36,10 @@ async function run() {
 }
 run().catch(console.dir);
 
-// mongoose
-//   .connect("mongodb://127.0.0.1:27017/gym-membership-app")
-//   .then(() => console.log("DB Connected"))
-//   .catch((err) => console.log(err));
+mongoose
+  .connect(`mongodb+srv://${databaseUser}@gym-app-prod.hvqp8qm.mongodb.net`)
+  .then(() => console.log("DB Connected"))
+  .catch((err) => console.log(err));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
