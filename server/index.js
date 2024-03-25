@@ -37,7 +37,7 @@ async function run() {
 run().catch(console.dir);
 
 mongoose
-  .connect(`mongodb+srv://${databaseUser}@gym-app-prod.hvqp8qm.mongodb.net`)
+  .connect(`mongodb+srv://${databaseUser}@gym-app-prod.hvqp8qm.mongodb.net/gym-app`)
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
 
