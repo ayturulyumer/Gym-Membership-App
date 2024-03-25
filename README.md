@@ -7,13 +7,16 @@
 
 ## Technologies Used
 
-- **Frontend:** 	 <a href="https://skillicons.dev">
+- **Frontend:**
+- React/Vite/Tailwind/MaterialUI/DaisyUI/HTML <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=react,vite,tailwind,materialui,html" />
   </a> 
-- **Backend:** <a href="https://skillicons.dev">
+- **Backend:**
+- NodeJS/Express/MongoDB/Mongoose <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb" />
   </a> 
-- **Deployment:** <a href="https://skillicons.dev">
+- **Deployment:**
+- Vercel/MongoDB Atlas <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=vercel,mongodb" />
   </a>
 
