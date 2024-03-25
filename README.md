@@ -10,7 +10,27 @@
 - **Frontend:** 	 <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=react,vite,tailwind,materialui,html" />
   </a> 
-- **Backend:** MongoDB Atlas serves as the cloud-based database for seamless data management.
-- **Deployment:** Vercel hosts both the backend and frontend components for easy accessibility.
+- **Backend:** <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb" />
+  </a> 
+- **Deployment:** <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=vercel,mongodb" />
+  </a>
 
+  ## Key Features
+
+- **Member Management:** Effortlessly add, edit, or remove member profiles.
+- **Subscription Plans:** Create and customize various subscription plans to suit different needs.
+- **Workout Tracking:** Keep track of members' workout sessions, including dates, and durations.
+- **Renewal Reminders:** Receive timely reminders for membership renewals to ensure uninterrupted access.
+
+
+## What I learned 
+
+- Using Tailwind CSS for efficient and responsive UI design.
+- Implementing MongoDB Atlas for cloud-based database management.
+- Deploying full-stack application with Vercel.
+
+
+Overall, Gym Management App has been an invaluable learning experience, enhancing my skills in full-stack development and enabling me to create impactful solutions for real-world scenarios.
 
