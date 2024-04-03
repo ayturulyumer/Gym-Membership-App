@@ -49,8 +49,8 @@ export default function RenewMemberModal({
 
     // change the workouts
 
-    if (data.cardType === "20 тренировки") {
-      data.workouts = 20;
+    if (data.cardType === "18 тренировки") {
+      data.workouts = 18;
     } else if (data.cardType === "25 тренировки") {
       data.workouts = 25;
     } else {
@@ -109,12 +109,12 @@ export default function RenewMemberModal({
       setStartDate(currentDate);
       setEndDate(nextMonth);
     } else if (
-      event.target.value === "20workouts" ||
+      event.target.value === "18workouts" ||
       event.target.value === "25workouts"
     ) {
       const currentDate = new Date();
       const nextMonth = new Date(currentDate);
-      nextMonth.setMonth(nextMonth.getMonth() + 3);
+      nextMonth.setMonth(nextMonth.getMonth() + 4);
       setStartDate(currentDate);
       setEndDate(nextMonth);
     } else {
@@ -205,7 +205,7 @@ export default function RenewMemberModal({
                 >
                   <option value="default">Избери вид карта...</option>
                   <option value="monthly">Месечна</option>
-                  <option value="20workouts">20 тренировки</option>
+                  <option value="18workouts">18 тренировки</option>
                   <option value="25workouts">25 тренировки</option>
                   <option value="personalized">Персонализиранa</option>
                 </select>
@@ -273,7 +273,7 @@ export default function RenewMemberModal({
                 )}
               </label>
 
-              {cardType === "20workouts" && (
+              {cardType === "18workouts" && (
                 <label className="input input-bordered flex items-center gap-2 text-secondary">
                   <FitnessCenterIcon />
                   Общо тренировки:
@@ -281,7 +281,7 @@ export default function RenewMemberModal({
                     type="text"
                     className="grow"
                     name="workouts"
-                    value="20"
+                    value="18"
                     disabled
                   />
                 </label>
