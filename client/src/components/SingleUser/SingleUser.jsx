@@ -25,7 +25,7 @@ export default function SingleUser({
       new Date(userMembershipEndDate).setUTCHours(0, 0, 0, 0) -
       new Date(currentDateISO).setUTCHours(0, 0, 0, 0);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays + 1;
+    return diffDays;
   };
 
   return (
